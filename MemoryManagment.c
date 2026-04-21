@@ -426,8 +426,159 @@ void mru() {
     printf("PAGE FAULT %d", pagefault);
 }
 
-int main(){
+//! first fit
+void firstFit(){
+    int holes[10];
+    int process[10];
+    int nh, np;
 
+    printf("Enter number of holes");
+    scanf("%d",&nh);
+
+    printf("Enter hole sizes: ");
+    for(int i = 0; i < nh; i++){
+        scanf("%d", &holes[i]);
+    }
+
+    printf("Enter number of process: ");
+    scanf("%d",&np);
+
+    for(int i = 0; i < np; i++){
+        scanf("%d",&process[i]);
+    }
+
+    int allocation[10];
+
+    for(int i = 0; i < np; i++){
+        allocation[i] = -1;
+    }
+
+    for(int i = 0; i < np; i++){
+        for(int j = 0; j < nh; j++){
+            if(holes[j] >= process[i]){
+                allocation[i] = j;
+                holes[j] -= process[i];
+                break;
+            }
+        }
+    }
+
+    printf("\nProcess\tHole\n");
+    for(int i = 0; i < np; i++) {
+        if(allocation[i] != -1)
+            printf("%d\t%d\n", process[i], allocation[i]);
+        else
+            printf("%d\tNot Allocated\n", process[i]);
+    }
+}
+
+//! best fit
+void bestFit(){
+    int holes[10];
+    int process[10];
+    int nh, np;
+
+    printf("Enter number of holes");
+    scanf("%d",&nh);
+
+    printf("Enter hole sizes: ");
+    for(int i = 0; i < nh; i++){
+        scanf("%d", &holes[i]);
+    }
+
+    printf("Enter number of process: ");
+    scanf("%d",&np);
+
+    for(int i = 0; i < np; i++){
+        scanf("%d",&process[i]);
+    }
+
+    int allocation[10];
+
+    for(int i = 0; i < np; i++){
+        allocation[i] = -1;
+    }
+
+    for(int i = 0; i < np; i++){
+        int best = -1;
+
+        for(int j = 0; j < nh; j++){
+            if(holes[j] >= process[i]){
+                if(best == -1 || holes[j] < holes[best]){
+                    best = j;
+                }
+            }
+        }
+
+        if(best != -1){
+            allocation[i] = best;
+            holes[best] -= process[i];
+        }
+    }
+
+    printf("\nProcess\tHole\n");
+    for(int i = 0; i < np; i++) {
+        if(allocation[i] != -1)
+            printf("%d\t%d\n", process[i], allocation[i]);
+        else
+            printf("%d\tNot Allocated\n", process[i]);
+    }
+}
+
+//! worst fit
+void worstFit(){
+    int holes[10];
+    int process[10];
+    int nh, np;
+
+    printf("Enter number of holes");
+    scanf("%d",&nh);
+
+    printf("Enter hole sizes: ");
+    for(int i = 0; i < nh; i++){
+        scanf("%d", &holes[i]);
+    }
+
+    printf("Enter number of process: ");
+    scanf("%d",&np);
+
+    for(int i = 0; i < np; i++){
+        scanf("%d",&process[i]);
+    }
+
+    int allocation[10];
+
+    for(int i = 0; i < np; i++){
+        allocation[i] = -1;
+    }
+
+    for(int i = 0; i < np; i++){
+        int worst = -1;
+
+        for(int j = 0; j < nh; j++){
+            if(holes[j] >= process[i]){
+                if(worst == -1 || holes[j] > holes[worst]){
+                    worst = j;
+                }
+            }
+        }
+
+        if(worst != -1){
+            allocation[i] = worst;
+            holes[worst] -= process[i];
+        }
+    }
+
+    printf("\nProcess\tHole\n");
+    for(int i = 0; i < np; i++) {
+        if(allocation[i] != -1)
+            printf("%d\t%d\n", process[i], allocation[i]);
+        else
+            printf("%d\tNot Allocated\n", process[i]);
+    }
+}
+
+int main(){
     return 0;
 }
 
