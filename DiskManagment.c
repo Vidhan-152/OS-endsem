@@ -83,7 +83,7 @@ void scan(int num[], int n, int head, int disk_size){
 
 //! -----------LOOK--------------
 
-void look(int num[], int n, int head, int disk_size){
+void look(int num[], int n, int head){
     int seek = 0;
     sort(num, n);
 
@@ -157,7 +157,7 @@ void clook(int num[], int n, int head){
     seek += abs(head - num[0]);
     head = num[0];
 
-    //* move left
+    //* move right
     for(int j = 1; j < i; j++){
         seek += abs(num[j] - head);
         head = num[j];
@@ -165,6 +165,8 @@ void clook(int num[], int n, int head){
 
     printf("Seek time : ",seek);
 }
+
+
 int main(){
     return 0;
 }

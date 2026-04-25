@@ -2,19 +2,13 @@
 #include <stdlib.h>
 
 //! fifo
-void fifo(){
-    int frames, pages;
-    printf("Enter number of frames: ");
-    scanf("%d", &frames);
+void fifo(int frames, int pages, int page[]){
 
-    printf("Enter number of pages: ");
-    scanf("%d", &pages);
-
-    int ref[100], frame[50];
+    int frame[50];
 
     printf("Enter page reference string:\n");
     for(int i = 0; i < pages; i++)
-        scanf("%d", &ref[i]);
+        scanf("%d", &page[i]);
 
     for(int i = 0; i < frames; i++)
         frame[i] = -1;
@@ -25,16 +19,15 @@ void fifo(){
     for(int i = 0; i < pages; i++){
         int found = 0;
 
-        // checking if the number is already there or not 
         for(int j = 0; j < frames; j++){
-            if(frame[j] == ref[i]){
+            if(frame[j] == page[i]){
                 found = 1;
                 break;
             }
         }
 
         if(!found){
-            frame[index] = ref[i];
+            frame[index] = page[i];
             index = (index + 1)%frames;
             faults++;
         }
